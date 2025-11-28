@@ -8,6 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
+  }, "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aixa02/parcialHibridas-front.git"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
