@@ -16,7 +16,8 @@ export default function EditMedicamento() {
     const [nota, setNota] = useState("");
     const [link, setLink] = useState("");
     const [imagen, setImagen] = useState("");
-
+    const [categorias, setCategorias] = useState([]);
+    //cargar medicamento
     useEffect(() => {
         const fetchMedicamento = async () => {
             try {
@@ -51,6 +52,32 @@ export default function EditMedicamento() {
 
         fetchMedicamento();
     }, [id, token]);
+    //cargar catergorias
+    useEffect(() => {
+        async function cargarCategorias() {
+            try {
+                const res = await fetch("http://localhost:3333/api/categorias", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + token
+                    },
+                });
+
+                if (!res.ok) throw new Error("Error al obtener categorías");
+
+                const data = await res.json();
+                setCategorias(data);
+
+            } catch (err) {
+                console.error(err);
+                alert("No se pudieron cargar las categorías");
+            }
+        }
+
+        cargarCategorias();
+    }, [token]);
+
 
     if (loading) return <p className="text-center mt-10">Cargando...</p>;
     const handleSubmit = async () => {
@@ -75,7 +102,7 @@ export default function EditMedicamento() {
                 },
                 body: JSON.stringify(updatedMedicamento),
             });
-            const text = await res.text();  
+            const text = await res.text();
             //console.log("Status:", res.status, "Body:", text);
             if (!res.ok) throw new Error("Error al actualizar el medicamento");
             alert("Medicamento actualizado!");
@@ -110,16 +137,24 @@ export default function EditMedicamento() {
                             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                         />
                     </div>
-
                     <div>
                         <label className="block text-gray-700 font-medium mb-1">Categoría</label>
-                        <input
-                            type="text"
+                        <select
+                            className="w-full border border-gray-300 rounded px-3 py-2"
                             value={categoria}
-                            onChange={(e) => setCategoria(e.target.value)}
-                            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        />
+                            onChange={e => setCategoria(e.target.value)}
+                        >
+                            <option value="">Selecciona una categoría</option>
+
+                            {categorias.map(cat => (
+                                <option key={cat._id} value={cat.nombre}>
+                                    {cat.nombre}
+                                </option>
+                            ))}
+                        </select>
                     </div>
+
+                   
 
                     <div>
                         <label className="block text-gray-700 font-medium mb-1">Dosis</label>
