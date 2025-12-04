@@ -30,10 +30,11 @@ const FiltrarCategorias = ({ onFiltrar }) => {
     <div className="flex gap-2 flex-wrap mb-4">
       <button
         className="px-3 py-1 border border-gray-400 rounded text-sm hover:bg-gray-100 transition"
-        onClick={() => onFiltrar("")} // Mostrar todos
+        onClick={() => onFiltrar("")}
       >
         Todas
       </button>
+
       {categorias.map(cat => (
         <button
           key={cat._id}
@@ -50,6 +51,9 @@ const FiltrarCategorias = ({ onFiltrar }) => {
 const Medicamentos = () => {
   const [medicamentos, setMedicamentos] = useState([]);
   const [medicamentosFiltrados, setMedicamentosFiltrados] = useState([]);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
+  const [textoBusqueda, setTextoBusqueda] = useState("");
+
   const token = useToken();
   const { usuario } = useContext(SessionContext);
 
@@ -75,12 +79,25 @@ const Medicamentos = () => {
     cargarMedicamentos();
   }, [token]);
 
-  const filtrarPorCategoria = (categoria) => {
-    if (!categoria) {
-      setMedicamentosFiltrados(medicamentos);
-    } else {
-      setMedicamentosFiltrados(medicamentos.filter(m => m.categoria === categoria));
+  // Actualiza filtros cada vez que cambia categoría o texto buscado
+  useEffect(() => {
+    aplicarFiltros();
+  }, [categoriaSeleccionada, textoBusqueda]);
+
+  const aplicarFiltros = () => {
+    let filtrados = medicamentos;
+
+    if (categoriaSeleccionada) {
+      filtrados = filtrados.filter(m => m.categoria === categoriaSeleccionada);
     }
+
+    if (textoBusqueda.trim() !== "") {
+      filtrados = filtrados.filter(m =>
+        m.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
+      );
+    }
+
+    setMedicamentosFiltrados(filtrados);
   };
 
   return (
@@ -95,8 +112,17 @@ const Medicamentos = () => {
         </Link>
       </div>
 
+      {/* BUSCADOR */}
+      <input
+        type="text"
+        placeholder="Buscar por nombre..."
+        className="w-full border px-3 py-2 rounded mb-4"
+        value={textoBusqueda}
+        onChange={(e) => setTextoBusqueda(e.target.value)}
+      />
 
-      <FiltrarCategorias onFiltrar={filtrarPorCategoria} />
+      {/* FILTRO POR CATEGORÍA */}
+      <FiltrarCategorias onFiltrar={setCategoriaSeleccionada} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {medicamentosFiltrados.length > 0 ? (
@@ -110,12 +136,14 @@ const Medicamentos = () => {
                 alt={medicamento.nombre}
                 className="rounded-md"
               />
+
               <div className="flex flex-col flex-1 mt-4">
                 <h2 className="text-xl font-bold">{medicamento.nombre}</h2>
                 <p className="mt-2">
                   <strong>Categoría:</strong> {medicamento.categoria}
                 </p>
                 <p className="italic mt-1">{medicamento.nota}</p>
+
                 <div className="mt-auto flex gap-2 pt-4">
                   <Link
                     to={`/medicamentos/${medicamento._id}`}
@@ -129,11 +157,10 @@ const Medicamentos = () => {
           ))
         ) : (
           <p className="col-span-full text-center text-gray-500 mt-4">
-            No hay medicamentos para esta categoría.
+            No se encontraron medicamentos con esos filtros.
           </p>
         )}
       </div>
-
     </div>
   );
 };
