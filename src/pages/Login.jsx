@@ -22,7 +22,7 @@ const Login = () => {
                 return res.json();
             })
             .then(data => {
-                console.log("Login response:", data);
+                console.log("TOKEN GUARDADO EN LOGIN:", data.token);
                 login(data);
                 setError("");
                 navigate('/medicamentos');

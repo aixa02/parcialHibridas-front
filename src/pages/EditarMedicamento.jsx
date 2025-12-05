@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router";
 import { useToken } from "../context/SessionContext.jsx";
+import CompartirMedicamento from "../components/medicamentos/CompartirMedicamento.jsx";
 
 export default function EditMedicamento() {
     const { id } = useParams();
@@ -112,6 +113,22 @@ export default function EditMedicamento() {
             alert("No se pudo actualizar el medicamento");
         }
     };
+    const fetchMedicamentoAgain = async () => {
+        try {
+            const res = await fetch(`http://localhost:3333/api/medicamentos/${id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token,
+                },
+            });
+
+            const data = await res.json();
+            setMedicamento(data);
+
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
 
 
@@ -154,7 +171,7 @@ export default function EditMedicamento() {
                         </select>
                     </div>
 
-                   
+
 
                     <div>
                         <label className="block text-gray-700 font-medium mb-1">Dosis</label>
@@ -194,6 +211,12 @@ export default function EditMedicamento() {
                             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                         />
                     </div>
+                    <CompartirMedicamento
+                        medicamentoId={id}
+                        token={token}
+                        colaboradores={medicamento.colaboradores}
+                        onRefresh={fetchMedicamentoAgain}
+                    />
 
 
                     <button
