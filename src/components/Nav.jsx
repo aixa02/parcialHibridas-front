@@ -33,6 +33,7 @@ const Nav = () => {
                                 <Link to="/" className="hover:text-blue-600">Inicio</Link>
 
                                 {usuario?.email && <Link to="/medicamentos" className="hover:text-blue-600">Medicamentos</Link>}
+                                {usuario?.email && <Link to="/medicamentos_compartidos" className="hover:text-blue-600">Medicamentos compartidos</Link>}
 
 
                                 {!usuario?.email && <Link to="/login" className="hover:text-blue-600">Iniciar Sesión</Link>}

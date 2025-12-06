@@ -17,6 +17,7 @@ import { SessionProvider } from './context/SessionContext.jsx';
 import Logout from './pages/Logout.jsx';
 import EditarMedicamento from './pages/EditarMedicamento.jsx';
 import AgregarMedicamento from './pages/AgregarMedicamento.jsx';
+import MedicamentosCompartidos from './pages/medicamentosCompartidos.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/medicamentos",
         element: <ProtectedRoute component={<Medicamentos />} />,
+      },
+      {
+        path: "/medicamentos_compartidos",
+        element: <ProtectedRoute component={<MedicamentosCompartidos />} />,
       },
 
       {
