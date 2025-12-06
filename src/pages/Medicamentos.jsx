@@ -68,8 +68,12 @@ const Medicamentos = () => {
       });
       if (!res.ok) throw new Error("fetch error");
       const data = await res.json();
-      setMedicamentos(data);
-      setMedicamentosFiltrados(data);
+      console.log("DATA:", data);
+
+      setMedicamentos(Array.isArray(data) ? data : []);
+      setMedicamentosFiltrados(Array.isArray(data) ? data : []);
+
+
     } catch (err) {
       console.log(err.message);
     }

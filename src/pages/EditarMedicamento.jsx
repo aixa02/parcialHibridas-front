@@ -214,7 +214,7 @@ export default function EditMedicamento() {
                     <CompartirMedicamento
                         medicamentoId={id}
                         token={token}
-                        colaboradores={medicamento.colaboradores}
+                        compartidoCon={medicamento.compartidoCon}
                         onRefresh={fetchMedicamentoAgain}
                     />
 

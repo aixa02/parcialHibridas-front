@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export default function CompartirMedicamento({
     medicamentoId,
     token,
-    colaboradores,
+    compartidoCon,
     onRefresh
 }) {
 
@@ -143,9 +143,9 @@ export default function CompartirMedicamento({
             {/* Lista de colaboradores actuales */}
             <h3 className="mt-6 font-semibold">Usuarios con acceso:</h3>
 
-            {colaboradores?.length ? (
+            {compartidoCon?.length ? (
                 <ul className="mt-2 space-y-2">
-                    {colaboradores.map(col => (
+                    {compartidoCon.map(col => (
                         <li key={col._id} className="flex justify-between bg-white p-2 shadow rounded">
                             <span>{col.email}</span>
 
