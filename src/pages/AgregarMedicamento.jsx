@@ -6,18 +6,14 @@ export default function AgregarMedicamento() {
 
     const navigate = useNavigate();
     const token = useToken();
-
     const [nombre, setNombre] = useState("");
     const [categoria, setCategoria] = useState("");
     const [dosis, setDosis] = useState("");
     const [frecuencia, setFrecuencia] = useState("");
     const [nota, setNota] = useState("");
     const [link, setLink] = useState("");
-
-    // Nuevo: estado para guardar las categorías cargadas desde la API
     const [categorias, setCategorias] = useState([]);
 
-    // Nuevo: carga de categorías al montar el componente
     useEffect(() => {
         async function cargarCategorias() {
             try {
@@ -42,7 +38,6 @@ export default function AgregarMedicamento() {
         cargarCategorias();
     }, [token]);
 
-    // Submit
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -92,7 +87,6 @@ export default function AgregarMedicamento() {
                     onChange={e => setNombre(e.target.value)}
                 />
 
-                {/* Nuevo: select dinámico */}
                 <select
                     className="w-full border border-gray-300 rounded px-3 py-2"
                     value={categoria}

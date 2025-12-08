@@ -68,7 +68,7 @@ const Medicamentos = () => {
       });
       if (!res.ok) throw new Error("fetch error");
       const data = await res.json();
-      console.log("DATA:", data);
+     // console.log("DATA:", data);
 
       setMedicamentos(Array.isArray(data) ? data : []);
       setMedicamentosFiltrados(Array.isArray(data) ? data : []);
@@ -116,7 +116,6 @@ const Medicamentos = () => {
         </Link>
       </div>
 
-      {/* BUSCADOR */}
       <input
         type="text"
         placeholder="Buscar por nombre..."
@@ -125,7 +124,7 @@ const Medicamentos = () => {
         onChange={(e) => setTextoBusqueda(e.target.value)}
       />
 
-      {/* FILTRO POR CATEGORÍA */}
+
       <FiltrarCategorias onFiltrar={setCategoriaSeleccionada} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

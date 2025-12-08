@@ -18,6 +18,7 @@ export default function EditMedicamento() {
     const [link, setLink] = useState("");
     const [imagen, setImagen] = useState("");
     const [categorias, setCategorias] = useState([]);
+
     //cargar medicamento
     useEffect(() => {
         const fetchMedicamento = async () => {
@@ -53,6 +54,7 @@ export default function EditMedicamento() {
 
         fetchMedicamento();
     }, [id, token]);
+
     //cargar catergorias
     useEffect(() => {
         async function cargarCategorias() {

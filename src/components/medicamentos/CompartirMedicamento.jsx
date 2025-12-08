@@ -11,7 +11,6 @@ export default function CompartirMedicamento({
     const [resultados, setResultados] = useState([]);
     const [timeoutId, setTimeoutId] = useState(null);
 
-    // Buscar usuarios en la base
     const buscarUsuarios = async (texto) => {
         if (!texto.trim()) {
             setResultados([]);
@@ -37,7 +36,6 @@ export default function CompartirMedicamento({
         }
     };
 
-    // Búsqueda con debounce mientras escribe
     const handleChange = (value) => {
         setEmail(value);
 
@@ -104,20 +102,18 @@ export default function CompartirMedicamento({
 
 
     return (
-        <div className="mt-8 p-4 border rounded-lg bg-gray-50">
-            <h2 className="text-xl font-bold mb-4">Colaboradores</h2>
+        <div className="mt-8 p-4 rounded-lg bg-gray-50">
+            <h2 className="text-xl font-bold mb-4">Compartir medicamento</h2>
 
-            {/* Input con autocompletado */}
             <div className="relative">
                 <input
                     type="text"
                     value={email}
                     onChange={e => handleChange(e.target.value)}
                     placeholder="Buscar usuario por email..."
-                    className="w-full border px-3 py-2 rounded"
+                    className="w-full border border-gray-300 px-3 py-2 rounded"
                 />
 
-                {/* Lista desplegable */}
                 {resultados.length > 0 && (
                     <div className="absolute z-10 bg-white border w-full shadow rounded mt-1 max-h-40 overflow-y-auto">
                         {resultados.map(u => (
@@ -135,12 +131,11 @@ export default function CompartirMedicamento({
 
             <button
                 onClick={invite}
-                className="mt-3 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                className="mt-3 bg-sky-500 text-white px-4 py-2 rounded hover:bg-sky-700"
             >
-                Agregar colaborador
+                Compartir
             </button>
 
-            {/* Lista de colaboradores actuales */}
             <h3 className="mt-6 font-semibold">Usuarios con acceso:</h3>
 
             {compartidoCon?.length ? (
@@ -153,13 +148,13 @@ export default function CompartirMedicamento({
                                 onClick={() => removeColaborador(col._id)}
                                 className="bg-red-600 text-white px-3 py-1 rounded"
                             >
-                                Quitar
+                                Eliminar
                             </button>
                         </li>
                     ))}
                 </ul>
             ) : (
-                <p className="text-gray-500 mt-2">Ningún colaborador asignado.</p>
+                <p className="text-gray-500 mt-2">No se compartió este medicamento.</p>
             )}
         </div>
     );
