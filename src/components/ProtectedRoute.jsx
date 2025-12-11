@@ -5,7 +5,7 @@ const ProtectedRoute = ({ component }) => {
 
 
     const session = JSON.parse(localStorage.getItem("session"))
-    console.log(session)
+    //console.log(session)
 
     if (session) {
         return component

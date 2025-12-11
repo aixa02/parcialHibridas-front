@@ -18,6 +18,7 @@ import Logout from './pages/Logout.jsx';
 import EditarMedicamento from './pages/EditarMedicamento.jsx';
 import AgregarMedicamento from './pages/AgregarMedicamento.jsx';
 import MedicamentosCompartidos from './pages/medicamentosCompartidos.jsx';
+import EditarPerfil from './pages/EditarPerfil.jsx';
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/perfil",
         element: <ProtectedRoute component={<Perfil />} />,
+      },
+      {
+        path: "/perfil/editar",
+        element: <ProtectedRoute component={<EditarPerfil />} />,
       },
       {
         path: "/login",

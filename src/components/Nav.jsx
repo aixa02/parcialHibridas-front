@@ -34,7 +34,7 @@ const Nav = () => {
 
                                 {usuario?.email && <Link to="/medicamentos" className="hover:text-blue-600">Medicamentos</Link>}
                                 {usuario?.email && <Link to="/medicamentos_compartidos" className="hover:text-blue-600">Medicamentos compartidos</Link>}
-
+                                {usuario?.email && <Link to="/perfil" className="hover:text-blue-600">Perfil</Link>}
 
                                 {!usuario?.email && <Link to="/login" className="hover:text-blue-600">Iniciar Sesión</Link>}
                                 {usuario?.email && <Link to="/logout" className="hover:text-blue-600">Cerrar Sesión</Link>}
@@ -49,9 +49,12 @@ const Nav = () => {
                         {open && (
                             <div className="md:hidden flex flex-col gap-4 py-4 text-center text-lg font-medium">
                                 <Link to="/" className="hover:text-blue-600">Inicio</Link>
-                                <Link to="/medicamentos" className="hover:text-blue-600">Medicamentos</Link>
-                                <Link to="/login" className="hover:text-blue-600">Iniciar Sesión</Link>
-                                <Link to="/logout" className="hover:text-blue-600">Cerrar Sesión</Link>
+                                {usuario?.email && <Link to="/medicamentos" className="hover:text-blue-600">Medicamentos</Link>}
+                                {usuario?.email && <Link to="/medicamentos_compartidos" className="hover:text-blue-600">Medicamentos compartidos</Link>}
+                                {usuario?.email && <Link to="/perfil" className="hover:text-blue-600">Perfil</Link>}
+
+                                {!usuario?.email && <Link to="/login" className="hover:text-blue-600">Iniciar Sesión</Link>}
+                                {usuario?.email && <Link to="/logout" className="hover:text-blue-600">Cerrar Sesión</Link>}
 
                             </div>
                         )}
